@@ -12,12 +12,6 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="loader" id="pageLoader">
-  <div class="loader-inner">
-    <span class="loader-text">SHUBHAM</span>
-    <div class="loader-bar"><span></span></div>
-  </div>
-</div>
 
 <header>
   <div class="navbar">
@@ -97,6 +91,28 @@
           <a href="https://github.com/wlfshubm" target="_blank" rel="noopener" class="btn btn-dark">GitHub</a>
         </div>
       </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" autocomplete="name" required maxlength="100">
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" autocomplete="email" required maxlength="200">
+        </div>
+        <div class="form-field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+        </div>
+        <!-- Honeypot field: hidden from real users, bots tend to fill it in -->
+        <div class="form-field" style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-dark" id="cf-submit">Send message</button>
+        <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 

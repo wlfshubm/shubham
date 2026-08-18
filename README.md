@@ -1,19 +1,52 @@
 # Shubham Mane — Portfolio
 
-A single-page developer portfolio built with plain HTML/CSS/JS (no build step needed).
+A developer portfolio built with plain HTML/CSS/JS, plus one Vercel serverless
+function (`api/contact.js`) that sends contact-form messages by email via
+[Resend](https://resend.com).
 
 ## Structure
 ```
 portfolio/
-├── index.html      # everything — markup, styles, and scripts
+├── index.html, projects.html, blog.html, contact.html, ...
+├── styles.css / script.js
+├── api/
+│   └── contact.js    # POST /api/contact — sends the contact form via Resend
 ├── images/
-│   └── profile.jpeg
-├── vercel.json      # tells Vercel this is a static site
+├── package.json       # declares the `resend` dependency used by api/contact.js
+├── .env.example        # env vars api/contact.js needs (copy to .env.local)
+├── vercel.json          # tells Vercel this is a static site + functions
 └── README.md
 ```
 
+## Contact form setup
+The contact page posts to `/api/contact`, a serverless function that emails
+the message using Resend.
+
+1. Create a free account at https://resend.com and grab an API key from
+   https://resend.com/api-keys.
+2. Copy `.env.example` to `.env.local` and fill in `RESEND_API_KEY`.
+3. (Optional) Verify your own domain in Resend and set `CONTACT_FROM_EMAIL`
+   to an address on it. Until then, the default shared sender
+   (`onboarding@resend.dev`) only delivers to the email on your Resend
+   account, which is fine for testing.
+4. In Vercel, add the same environment variables under
+   **Project → Settings → Environment Variables** before deploying.
+
+If the request to `/api/contact` fails for any reason (e.g. offline), the
+form falls back to opening the visitor's email client with a pre-filled
+`mailto:` link, so it never leaves them stuck.
+
 ## Run locally
-Just open `index.html` in a browser, or serve it:
+The static pages can be opened directly, but the contact form needs the
+serverless function running, so use the Vercel CLI:
+```bash
+npm install
+npm i -g vercel   # once
+vercel dev
+```
+This serves the whole site (including `/api/contact`) at `http://localhost:3000`.
+
+Static-only preview (no working contact form):
 ```bash
 npx serve .
 ```

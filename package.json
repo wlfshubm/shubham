@@ -1,0 +1,10 @@
+{
+  "name": "shubham-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static portfolio site with a Vercel serverless function backing the contact form.",
+  "dependencies": {
+    "resend": "^6.20.0"
+  }
+}
